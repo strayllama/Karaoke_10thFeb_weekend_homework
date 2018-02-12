@@ -4,6 +4,7 @@ require_relative("guest.rb")
 
 @rooms = []
 @song_db = []
+@guest_list = []
 
 main_menu_choice = nil
 anykey = "used for enter-anykey-to-continue input"
@@ -88,16 +89,31 @@ while main_menu_choice != "q" do
 
   when "3"
     add_guest_choice = nil
-    while (add_song_choice != "b") do
+    while (add_guest_choice != "b") do
       print %x{clear}
       puts "\#\#\#\# ADD GUEST \#\#\#\#"
       puts "Type the name of the new guest:"
-      puts "(type b to NOT add  a new song --> go back to main menu)"
-      if add_song_choice == "b"
+      puts "(type b to NOT add  a new guest --> go back to main menu)"
+      add_guest_choice = gets.chomp
+      if add_guest_choice == "b"
       else
+        new_guest_name = add_guest_choice
+        puts "Type Fav Song Title of guest:"
+        new_guest_fav_song = gets.chomp
+        puts "Enter Blance/Wallet for this guest:"
+        new_guest_wallet = gets.chomp
+        new_guest = Guest.new(new_guest_name, new_guest_wallet, new_guest_fav_song)
+        # DIDN't FINISH THIS BIT......
+        print %x{clear}
+        puts "You have created a new GUEST!:"
+        puts "  ** NAME: #{new_guest.name()}"
+        puts "  ** WALLET: #{new_guest.money()}"
+        puts "  ** FAV SONG: #{new_guest.fav_song()}"
         puts ""
-        puts "Press ENTER key to return to main menu"
-        anykey = gets.chomp
+        puts "TO ADD THEM!! enter Y, or to cancel just type anything else:"
+        puts "(Press ENTER key to continue)"
+        are_you_sure3 = gets.chomp.downcase
+        @guest_list << new_guest if (are_you_sure2 == "y")
       end
     end
 
@@ -133,6 +149,7 @@ while main_menu_choice != "q" do
         puts "  Capacity: #{room.capacity()}"
         puts "  Guest Fee: #{room.room_fee()}"
         puts "  Current Till value: #{room.till()}"
+        puts "  Current Song List: #{room.song_list()}"
         print "  Current Guests:"
         if room.occupants().length > 0
           guest_counter = 1

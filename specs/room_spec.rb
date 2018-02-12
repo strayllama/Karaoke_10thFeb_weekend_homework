@@ -66,9 +66,7 @@ class RoomTest < MiniTest::Test
     @room1.add_guest(@guest1)
     @room1.add_guest(@guest2)
     @room1.add_guest(@guest3)
-    occupant_name_list = []
-    @room1.occupants.each { |person| occupant_name_list << person.name() }
-    assert_equal(["Knut Erik", "Per Anre"], occupant_name_list) # test 10
+    assert_equal([@guest1, @guest2], @room1.occupants()) # test 10
   end
 
 

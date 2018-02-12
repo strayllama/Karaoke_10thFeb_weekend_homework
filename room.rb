@@ -30,4 +30,12 @@ attr_reader(:capacity, :till, :room_fee, :song_list, :occupants)
     @song_list << song
   end
 
+
+  def song_list()
+    if @song_list.length > 0
+      @song_list.each_with_index { | song, index | puts "  #{index + 1} -- #{song.title()}"}
+    else
+      print " -- NO SONGS ADDED YET! --"
+    end
+  end
 end # end CLASS ROOM
